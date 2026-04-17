@@ -1,0 +1,58 @@
+
+# Laravel specific
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+/.env
+/.env.backup
+/.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+/.idea
+/.vscode
+*.sql
+*.sql.gz
+.DS_Store
+Thumbs.db
+
+# Laravel 11 specific
+/storage/framework/
+/storage/logs/
+/bootstrap/cache/
+
+# Logs
+*.log
+
+# PHPUnit
+.phpunit.cache
+
+# Composer
+composer.phar
+
+# Compiled JS/CSS
+public/assets/js/
+public/assets/css/
+public/mix-manifest.json
+public/build/
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-*
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Uploads (jika ada file user upload, jangan di commit)
+public/uploads/
+public/assets/uploads/
+
+# Temporary files
+*.tmp
+*.temp

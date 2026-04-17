@@ -1,0 +1,50 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        if (!Schema::hasTable('gallery_project')) {
+            Schema::create('gallery_project', function (Blueprint $table) {
+                // Primary Key
+                $table->increments('id_gallery');
+                
+                // Foreign Key
+                $table->integer('id_project')->unsigned();
+                
+                // Gallery Data
+                $table->enum('jenis_foto', ['sebelum', 'proses', 'sesudah', 'detail', 'desain', 'material']);
+                $table->string('nama_file', 255);
+                $table->string('url_foto', 255);
+                $table->string('deskripsi_foto', 200)->nullable();
+                $table->tinyInteger('thumbnail')->default(0);
+                $table->integer('urutan')->default(0);
+                
+                // Timestamps
+                $table->timestamps();
+                
+                // Indexes
+                $table->index('id_project');
+                $table->index('jenis_foto');
+                $table->index('thumbnail');
+            });
+        }
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        if (Schema::hasTable('gallery_project')) {
+            Schema::dropIfExists('gallery_project');
+        }
+    }
+};
