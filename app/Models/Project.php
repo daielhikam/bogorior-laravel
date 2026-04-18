@@ -199,21 +199,23 @@ class Project extends Model
      * Get the main image URL for the project.
      */
     public function getMainImageUrlAttribute(): string
-    {
-        $gallery = $this->galleries()
-            ->where('thumbnail', 1)
-            ->orWhere('jenis_foto', 'sesudah')
-            ->first();
-        
-        if ($gallery && $gallery->url_foto) {
-            if (filter_var($gallery->url_foto, FILTER_VALIDATE_URL)) {
-                return $gallery->url_foto;
-            }
+{
+    $gallery = $this->galleries()
+        ->where('thumbnail', 1)
+        ->orWhere('jenis_foto', 'sesudah')
+        ->first();
+    
+    if ($gallery && $gallery->url_foto) {
+        // Cek apakah file benar-benar ada
+        $path = public_path($gallery->url_foto);
+        if (file_exists($path)) {
             return asset($gallery->url_foto);
         }
-        
-        return asset('assets/images/placeholder-project.jpg');
     }
+    
+    // Fallback ke placeholder
+    return 'https://placehold.co/600x400/e5e7eb/6b7280?text=No+Image';
+}
 
     /**
      * Get the customer that owns the project.
@@ -278,7 +280,7 @@ class Project extends Model
     {
         return $query->where('kategori_desain', $kategori);
     }
-
+    
     /**
      * Scope a query to order by latest.
      */

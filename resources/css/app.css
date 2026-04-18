@@ -1,11 +1,57 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+        @apply bg-gray-50 font-sans antialiased;
+    }
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+@layer components {
+    .container-custom {
+        @apply container mx-auto px-4 sm:px-6 lg:px-8;
+    }
+    
+    .btn-primary {
+        @apply bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg hover:-translate-y-0.5;
+    }
+    
+    .btn-secondary {
+        @apply bg-white/20 backdrop-blur hover:bg-white/30 text-white font-semibold px-6 py-3 rounded-full transition-all duration-300 flex items-center justify-center gap-2 border border-white;
+    }
+    
+    .card {
+        @apply bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden;
+    }
+    
+    .stat-card {
+        @apply p-6 text-center hover:-translate-y-1 transition-all duration-300;
+    }
+    
+    .service-card {
+        @apply bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 text-center relative;
+    }
+    
+    .feature-card {
+        @apply bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300;
+    }
+}
+
+@layer utilities {
+    .animate-slide-in {
+        animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
 }
