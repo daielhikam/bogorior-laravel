@@ -8,32 +8,37 @@ return new class extends Migration
 {
     public function up(): void
     {
-        if (!Schema::hasTable('paket_layanan')) {
-            Schema::create('paket_layanan', function (Blueprint $table) {
-                $table->increments('id_paket');
-                $table->string('nama_paket', 100);
-                $table->string('slug_paket', 100)->unique();
-                $table->enum('jenis_layanan', ['custom', 'premium', 'renovasi', 'interior']);
-                $table->decimal('harga_mulai', 15, 2);
-                $table->text('deskripsi_singkat')->nullable();
-                $table->text('deskripsi_lengkap')->nullable();
-                $table->text('fitur')->nullable();
-                $table->text('spesifikasi')->nullable();
-                $table->string('gambar_paket', 255)->nullable();
-                $table->tinyInteger('popular')->default(0);
-                $table->integer('urutan')->default(0);
-                $table->tinyInteger('aktif')->default(1);
+        if (!Schema::hasTable('testimoni')) {
+            Schema::create('testimoni', function (Blueprint $table) {
+                $table->increments('id_testimoni');
+                $table->integer('id_project')->unsigned()->nullable();
+                $table->string('nama_client', 100);
+                $table->string('foto_client', 255)->nullable();
+                $table->string('url_video', 500)->nullable();
+                $table->enum('video_platform', ['youtube', 'vimeo', 'tiktok', 'instagram', 'facebook', 'local'])->nullable();
+                $table->string('video_id', 200)->nullable();
+                $table->string('video_thumbnail', 255)->nullable();
+                $table->integer('rating');
+                $table->text('testimoni');
+                $table->string('jenis_project', 50)->nullable();
+                $table->string('lokasi', 100)->nullable();
+                $table->enum('status_testimoni', ['pending', 'approved', 'featured', 'arsip'])->default('pending');
+                $table->enum('tipe_testimoni', ['teks', 'video'])->default('teks');
+                $table->boolean('featured')->default(false);
+                $table->date('tanggal_testimoni')->nullable();
                 $table->timestamps();
                 
-                $table->index('jenis_layanan');
-                $table->index('popular');
-                $table->index('aktif');
+                $table->index('id_project');
+                $table->index('status_testimoni');
+                $table->index('featured');
+                $table->index('tipe_testimoni');
+                $table->index('rating');
             });
         }
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('paket_layanan');
+        Schema::dropIfExists('testimoni');
     }
 };
