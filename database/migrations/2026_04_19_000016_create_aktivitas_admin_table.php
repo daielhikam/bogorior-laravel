@@ -10,8 +10,9 @@ return new class extends Migration
     {
         if (!Schema::hasTable('aktivitas_admin')) {
             Schema::create('aktivitas_admin', function (Blueprint $table) {
-                $table->increments('id_aktivitas');
-                $table->integer('id_admin')->unsigned()->nullable();
+                $table->id('id_aktivitas');
+                // Perbaikan: tentukan kolom referensi yang benar (id_admin)
+                $table->foreignId('id_admin')->nullable()->constrained('admin_users', 'id_admin')->onDelete('set null');
                 $table->string('nama_admin', 100)->nullable();
                 $table->string('role_admin', 50)->nullable();
                 $table->enum('tipe_aktivitas', ['login', 'logout', 'create', 'update', 'delete', 'export', 'import', 'backup']);
@@ -23,8 +24,6 @@ return new class extends Migration
                 $table->text('user_agent')->nullable();
                 $table->timestamps();
                 
-                $table->index('nama_admin');
-                $table->index('role_admin');
                 $table->index('tipe_aktivitas');
                 $table->index('modul');
                 $table->index('created_at');

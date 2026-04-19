@@ -10,13 +10,13 @@ return new class extends Migration
     {
         if (!Schema::hasTable('admin_users')) {
             Schema::create('admin_users', function (Blueprint $table) {
-                $table->increments('id_admin');
+                $table->id('id_admin');
                 $table->string('username', 50)->unique();
                 $table->string('password', 255);
                 $table->string('nama_lengkap', 100);
                 $table->string('email', 100)->unique();
                 $table->enum('role', ['super_admin', 'admin', 'desainer', 'marketing', 'cs'])->default('admin');
-                $table->tinyInteger('aktif')->default(1);
+                $table->boolean('aktif')->default(true);
                 $table->enum('approval_status', ['pending', 'approved', 'rejected'])->default('pending');
                 $table->string('foto_profil', 255)->nullable();
                 $table->string('whatsapp', 20)->nullable();

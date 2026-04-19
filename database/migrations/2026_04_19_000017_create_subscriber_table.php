@@ -10,7 +10,7 @@ return new class extends Migration
     {
         if (!Schema::hasTable('subscriber')) {
             Schema::create('subscriber', function (Blueprint $table) {
-                $table->increments('id_subscriber');
+                $table->id('id_subscriber');
                 $table->string('email', 100)->unique();
                 $table->string('nama', 100)->nullable();
                 $table->enum('status', ['aktif', 'unsubscribe', 'bounced'])->default('aktif');

@@ -10,8 +10,8 @@ return new class extends Migration
     {
         if (!Schema::hasTable('konsultasi')) {
             Schema::create('konsultasi', function (Blueprint $table) {
-                $table->increments('id_konsultasi');
-                $table->integer('id_pelanggan')->unsigned()->nullable();
+                $table->id('id_konsultasi');
+                $table->foreignId('id_pelanggan')->nullable()->constrained('pelanggan', 'id_pelanggan')->onDelete('set null');
                 $table->string('nama_konsultan', 100)->nullable();
                 $table->string('no_whatsapp', 20);
                 $table->string('email', 100)->nullable();
@@ -27,7 +27,6 @@ return new class extends Migration
                 $table->datetime('tanggal_konsultasi')->nullable();
                 $table->timestamps();
                 
-                $table->index('id_pelanggan');
                 $table->index('status_konsultasi');
                 $table->index('tanggal_konsultasi');
             });

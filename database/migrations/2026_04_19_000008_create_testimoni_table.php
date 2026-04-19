@@ -10,8 +10,9 @@ return new class extends Migration
     {
         if (!Schema::hasTable('testimoni')) {
             Schema::create('testimoni', function (Blueprint $table) {
-                $table->increments('id_testimoni');
-                $table->integer('id_project')->unsigned()->nullable();
+                $table->id('id_testimoni');
+                // Perbaikan: tentukan kolom referensi yang benar (id_project)
+                $table->foreignId('id_project')->nullable()->constrained('project', 'id_project')->onDelete('cascade');
                 $table->string('nama_client', 100);
                 $table->string('foto_client', 255)->nullable();
                 $table->string('url_video', 500)->nullable();
@@ -28,11 +29,10 @@ return new class extends Migration
                 $table->date('tanggal_testimoni')->nullable();
                 $table->timestamps();
                 
-                $table->index('id_project');
                 $table->index('status_testimoni');
                 $table->index('featured');
-                $table->index('tipe_testimoni');
                 $table->index('rating');
+                $table->index('tipe_testimoni');
             });
         }
     }

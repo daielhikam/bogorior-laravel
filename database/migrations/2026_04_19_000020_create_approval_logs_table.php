@@ -10,17 +10,15 @@ return new class extends Migration
     {
         if (!Schema::hasTable('approval_logs')) {
             Schema::create('approval_logs', function (Blueprint $table) {
-                $table->increments('id_approval');
-                $table->integer('id_admin')->unsigned();
+                $table->id('id_approval');
+                // Perbaikan: tentukan kolom referensi yang benar (id_admin)
+                $table->foreignId('id_admin')->constrained('admin_users', 'id_admin')->onDelete('cascade');
                 $table->enum('action', ['register', 'activate', 'deactivate', 'delete']);
                 $table->enum('status_from', ['pending', 'active', 'inactive']);
                 $table->enum('status_to', ['pending', 'active', 'inactive']);
                 $table->text('reason')->nullable();
-                $table->integer('performed_by')->unsigned();
+                $table->foreignId('performed_by')->constrained('admin_users', 'id_admin')->onDelete('cascade');
                 $table->timestamps();
-                
-                $table->index('id_admin');
-                $table->index('performed_by');
             });
         }
     }

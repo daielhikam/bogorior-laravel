@@ -10,7 +10,7 @@ return new class extends Migration
     {
         if (!Schema::hasTable('artikel')) {
             Schema::create('artikel', function (Blueprint $table) {
-                $table->increments('id_artikel');
+                $table->id('id_artikel');
                 $table->string('judul_artikel', 200);
                 $table->string('slug', 255)->unique();
                 $table->longText('konten');
@@ -20,7 +20,7 @@ return new class extends Migration
                 $table->text('tags')->nullable();
                 $table->string('penulis', 100)->default('Admin Bogorior');
                 $table->enum('status_artikel', ['draft', 'publish', 'featured', 'arsip'])->default('draft');
-                $table->tinyInteger('featured')->default(0);
+                $table->boolean('featured')->default(false);
                 $table->date('tanggal_publish')->nullable();
                 $table->integer('views')->default(0);
                 $table->string('meta_title', 200)->nullable();

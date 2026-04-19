@@ -10,8 +10,9 @@ return new class extends Migration
     {
         if (!Schema::hasTable('material_project')) {
             Schema::create('material_project', function (Blueprint $table) {
-                $table->increments('id_material');
-                $table->integer('id_project')->unsigned();
+                $table->id('id_material');
+                // Perbaikan: tentukan kolom referensi yang benar (id_project)
+                $table->foreignId('id_project')->constrained('project', 'id_project')->onDelete('cascade');
                 $table->string('nama_material', 100);
                 $table->enum('jenis_material', ['kabinet', 'countertop', 'hardware', 'finishing', 'aksesoris']);
                 $table->text('spesifikasi')->nullable();
@@ -20,7 +21,6 @@ return new class extends Migration
                 $table->string('satuan', 20)->nullable();
                 $table->timestamps();
                 
-                $table->index('id_project');
                 $table->index('jenis_material');
             });
         }

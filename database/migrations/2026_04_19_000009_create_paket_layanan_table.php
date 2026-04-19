@@ -10,7 +10,7 @@ return new class extends Migration
     {
         if (!Schema::hasTable('paket_layanan')) {
             Schema::create('paket_layanan', function (Blueprint $table) {
-                $table->increments('id_paket');
+                $table->id('id_paket');
                 $table->string('nama_paket', 100);
                 $table->string('slug_paket', 100)->unique();
                 $table->enum('jenis_layanan', ['custom', 'premium', 'renovasi', 'interior']);
@@ -20,9 +20,9 @@ return new class extends Migration
                 $table->text('fitur')->nullable();
                 $table->text('spesifikasi')->nullable();
                 $table->string('gambar_paket', 255)->nullable();
-                $table->tinyInteger('popular')->default(0);
+                $table->boolean('popular')->default(false);
                 $table->integer('urutan')->default(0);
-                $table->tinyInteger('aktif')->default(1);
+                $table->boolean('aktif')->default(true);
                 $table->timestamps();
                 
                 $table->index('jenis_layanan');

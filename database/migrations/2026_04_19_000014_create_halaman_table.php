@@ -10,7 +10,7 @@ return new class extends Migration
     {
         if (!Schema::hasTable('halaman')) {
             Schema::create('halaman', function (Blueprint $table) {
-                $table->increments('id_halaman');
+                $table->id('id_halaman');
                 $table->string('judul_halaman', 200);
                 $table->string('slug_halaman', 100)->unique();
                 $table->longText('konten')->nullable();

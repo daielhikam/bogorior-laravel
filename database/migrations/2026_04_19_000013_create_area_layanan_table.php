@@ -10,12 +10,12 @@ return new class extends Migration
     {
         if (!Schema::hasTable('area_layanan')) {
             Schema::create('area_layanan', function (Blueprint $table) {
-                $table->increments('id_area');
+                $table->id('id_area');
                 $table->string('nama_area', 100);
                 $table->enum('jenis_area', ['kota', 'kabupaten', 'sekitar', 'luar_kota']);
                 $table->text('daftar_lokasi')->nullable();
                 $table->text('deskripsi')->nullable();
-                $table->tinyInteger('aktif')->default(1);
+                $table->boolean('aktif')->default(true);
                 $table->integer('urutan')->default(0);
                 $table->timestamps();
                 

@@ -10,7 +10,7 @@ return new class extends Migration
     {
         if (!Schema::hasTable('pesan_kontak')) {
             Schema::create('pesan_kontak', function (Blueprint $table) {
-                $table->increments('id_pesan');
+                $table->id('id_pesan');
                 $table->string('nama_pengirim', 100);
                 $table->string('email_pengirim', 100);
                 $table->string('no_whatsapp', 20)->nullable();

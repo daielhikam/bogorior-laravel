@@ -10,12 +10,12 @@ return new class extends Migration
     {
         if (!Schema::hasTable('faq')) {
             Schema::create('faq', function (Blueprint $table) {
-                $table->increments('id_faq');
+                $table->id('id_faq');
                 $table->text('pertanyaan');
                 $table->text('jawaban');
                 $table->enum('kategori', ['layanan', 'pembayaran', 'garansi', 'pemasangan', 'material', 'umum'])->default('umum');
                 $table->integer('urutan')->default(0);
-                $table->tinyInteger('aktif')->default(1);
+                $table->boolean('aktif')->default(true);
                 $table->timestamps();
                 
                 $table->index('kategori');

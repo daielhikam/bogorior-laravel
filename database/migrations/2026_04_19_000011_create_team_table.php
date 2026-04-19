@@ -10,7 +10,7 @@ return new class extends Migration
     {
         if (!Schema::hasTable('team')) {
             Schema::create('team', function (Blueprint $table) {
-                $table->increments('id_team');
+                $table->id('id_team');
                 $table->string('nama_lengkap', 100);
                 $table->string('posisi', 100);
                 $table->string('foto', 255)->nullable();
@@ -20,7 +20,7 @@ return new class extends Migration
                 $table->string('email', 100)->nullable();
                 $table->string('no_whatsapp', 20)->nullable();
                 $table->integer('urutan')->default(0);
-                $table->tinyInteger('aktif')->default(1);
+                $table->boolean('aktif')->default(true);
                 $table->timestamps();
                 
                 $table->index('aktif');

@@ -10,9 +10,9 @@ return new class extends Migration
     {
         if (!Schema::hasTable('project')) {
             Schema::create('project', function (Blueprint $table) {
-                $table->increments('id_project');
-                $table->integer('id_pelanggan')->unsigned();
-                $table->integer('id_konsultasi')->unsigned()->nullable();
+                $table->id('id_project');  // ← ini penting: nama kolom primary key adalah id_project
+                $table->foreignId('id_pelanggan')->constrained('pelanggan', 'id_pelanggan')->onDelete('cascade');
+                $table->foreignId('id_konsultasi')->nullable()->constrained('konsultasi', 'id_konsultasi')->onDelete('set null');
                 $table->string('kode_project', 20)->unique();
                 $table->string('nama_project', 100);
                 $table->enum('jenis_project', ['custom', 'premium', 'renovasi', 'interior', 'konsultasi_desain']);
@@ -32,8 +32,6 @@ return new class extends Migration
                 $table->date('tanggal_garansi')->nullable();
                 $table->timestamps();
                 
-                $table->index('id_pelanggan');
-                $table->index('id_konsultasi');
                 $table->index('status_project');
                 $table->index('created_at');
                 $table->index('kode_project');

@@ -10,8 +10,9 @@ return new class extends Migration
     {
         if (!Schema::hasTable('admin_sessions')) {
             Schema::create('admin_sessions', function (Blueprint $table) {
-                $table->increments('id_session');
-                $table->integer('admin_id')->unsigned();
+                $table->id('id_session');
+                // Perbaikan: tentukan kolom referensi yang benar (id_admin)
+                $table->foreignId('admin_id')->constrained('admin_users', 'id_admin')->onDelete('cascade');
                 $table->string('token', 128)->unique();
                 $table->datetime('expires_at');
                 $table->datetime('last_activity');
@@ -19,7 +20,6 @@ return new class extends Migration
                 $table->text('user_agent')->nullable();
                 $table->timestamps();
                 
-                $table->index('admin_id');
                 $table->index('token');
                 $table->index('expires_at');
             });
